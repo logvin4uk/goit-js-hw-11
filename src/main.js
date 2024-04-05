@@ -8,7 +8,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 import { gallery } from './js/render-functions';
-
+const form = document.querySelector('.find-form');
 form.addEventListener('submit', submitImageFinder);
 
 const loader = document.querySelector('.loader');
@@ -16,26 +16,26 @@ const loader = document.querySelector('.loader');
 function submitImageFinder(event) {
   event.preventDefault();
   gallery.innerHTML = '';
-  const value = event.target.elements.formInput.value.trim();
+  const searchTerm = event.target.elements.formInput.value.trim();
 
-  if (value === '') {
+  if (searchTerm === '') {
     iziToast.error({
       color: 'red',
       message: 'Please,type any text',
-      position: 'topRight',
+      position: 'topCenter',
       title: 'Error',
     });
 
     gallery.innerHTML = '';
   } else {
-    getImage(value)
+    getImage(searchTerm)
       .then(collection => {
         if (collection.hits.length < 1) {
           iziToast.error({
             color: 'red',
             message:
               'Sorry, there are no images matching your search query. Please try again!',
-            position: 'topRight',
+            position: 'topCenter',
             title: 'Oops',
           });
         } else {
